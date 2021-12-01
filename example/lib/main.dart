@@ -30,14 +30,13 @@ class Home extends StatefulWidget {
 
 class _Home extends State<Home> {
   final z = Zendesk.instance;
-
-  String accountKey = '';
-  String appId = '';
+  final _accountKey='';
+  final _appId='';
   String clientId = '';
   String zendeskUrl = '';
 
   void answer() async {
-    z.initAnswerSDK(appId, clientId, zendeskUrl);
+    z.initAnswerSDK(_appId, clientId, zendeskUrl);
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => ZendeskAnswerUI()));
   }
@@ -45,9 +44,9 @@ class _Home extends State<Home> {
   void chat() async {
     String name = '';
     String email = '';
-    String phoneNumber = '';
+    String phoneNumber = '+218912345678';
 
-    await z.initChatSDK(accountKey, appId);
+    await z.initChatSDK(_accountKey, _appId);
 
     Zendesk2Chat zChat = Zendesk2Chat.instance;
 
@@ -55,10 +54,9 @@ class _Home extends State<Home> {
       name: name,
       email: email,
       phoneNumber: phoneNumber,
-      tags: ['app', 'zendesk2_plugin'],
+      tags: ['app', 'zendesk'],
     );
 
-    await Zendesk2Chat.instance.startChatProviders(autoConnect: false);
 
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => ZendeskChat()));

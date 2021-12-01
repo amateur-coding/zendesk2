@@ -67,6 +67,8 @@ class _ZendeskChat extends State<ZendeskChat> {
         print('isOnline: $_chatAccountModel');
         setState(() {});
       });
+    await Zendesk2Chat.instance.startChatProviders(autoConnect: true);
+
     });
   }
 
@@ -161,7 +163,7 @@ class _ZendeskChat extends State<ZendeskChat> {
     final compatibleExt = _chatSettingsModel?.supportedFileTypes;
 
     final result = isPhoto
-        ? await ImagePicker.pickImage(source: ImageSource.gallery)
+        ? await ImagePicker().pickImage(source: ImageSource.gallery)
         : await FilePicker.platform.pickFiles(
             allowMultiple: false,
             type: FileType.custom,
@@ -172,7 +174,7 @@ class _ZendeskChat extends State<ZendeskChat> {
         result is FilePickerResult ? result.files.single : (result as File);
 
     final path = file is PlatformFile ? file.path : (file as File).path;
-
+if(path!=null)
     _z.sendFile(path);
   }
 
