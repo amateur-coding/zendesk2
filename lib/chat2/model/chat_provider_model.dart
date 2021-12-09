@@ -278,8 +278,11 @@ class ChatLogType {
         chatMessage = ChatMessage.fromJson(map['chatMessage']);
         break;
       case LOG_TYPE.OPTIONS_MESSAGE:
+      Map<dynamic, dynamic>? msg=map['chatOptionsMessage'];
+      if(msg!=null){
         chatOptionsMessage =
             ChatOptionsMessage.fromJson(map['chatOptionsMessage']);
+      }
         break;
     }
     return ChatLogType(
